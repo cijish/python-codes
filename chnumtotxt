@@ -1,0 +1,73 @@
+upto90 = {
+    '0' : '',
+    '1' : 'one',
+    '2' : 'two',
+    '3' : 'three',
+    '4' : 'four',
+    '5' : 'five',
+    '6' : 'six',
+    '7' : 'seven',
+    '8' : 'eight',
+    '9' : 'nine',
+    '10' : 'ten',
+    '11' : 'eleven',
+    '12' : 'twelve',
+    '13' : 'thirteen',
+    '14' : 'fourteen',
+    '15' : 'fifteen',
+    '16' : 'sixteen',
+    '17' : 'seventeen',
+    '18' : 'eighteen',
+    '19' : 'nineteen',
+    '20' : 'twenty',
+    '30' : 'thirty',
+    '40' : 'forty',
+    '50' : 'fifty',
+    '60' : 'sixty',
+    '70' : 'seventy',
+    '80' : 'eighty',
+    '90' : 'ninety'
+}
+
+def num2txt(num,s):
+  length = len(str(num))
+
+	if upto90.has_key(str(num)):
+		return upto90[str(num)]
+	elif length >7:
+		s += " "+num2txt(num/10000000,s)
+		if num !=0: s +=' core'
+		s+=" "+num2txt(num%10000000,"")
+	elif length >5:
+		s +=" "+ num2txt(num/100000,s)
+		if num !=0: s +=' lakh'
+		s+=" "+num2txt(num%100000,"")
+	elif length >3:
+		s +=" "+ num2txt(num/1000,s)
+		if num !=0: s +=' thousand'
+		s+=" "+num2txt(num%1000,"")
+	elif length >2:
+			
+		s +=" "+ num2txt(num/100,s)
+		if num !=0: s +=' hundred'
+		num = num%100
+		if num !=0:
+			s +=' and'
+		s += " "+ num2txt(num,"")		
+	elif length >1:		
+		s += " "+num2txt(num/10*10,s)+" "+num2txt(num%10,"")
+	
+			
+	return s
+		
+
+num = input("Enter a number : ")
+
+if not val: return " "
+num = int(val)
+if num == '0': # Zero is a special case
+        return 'zero'+" only"
+else: 
+	
+	s=""
+	return num2txt(num,s).strip()
