@@ -1,0 +1,29 @@
+import Image,ImageDraw,ImageFont
+import random
+import string
+import ImageFilter
+def captcha():
+  s=""
+	fontPath = "/usr/share/fonts/truetype/msttcorefonts/Andale_Mono.ttf"
+	f = ImageFont.truetype(fontPath,32)
+
+	x,y=5,2
+	bg = Image.new('RGB',(170,39),(255,255,255))
+	charlist = string.uppercase + string.digits
+	for i in range(6):
+		ch=random.choice(charlist)
+		s=''.join([s,ch])
+		img = Image.new('L',(28,35),255)
+		draw = ImageDraw.Draw(img)
+		draw.text((0,0),ch, font=f)
+		img1=img.rotate(random.choice(range(-10,10)), Image.BICUBIC, expand=0)
+
+		xsize, ysize = img1.size
+		bg.paste(img1, (x, y, x+xsize,y+ysize))
+		x=x+xsize
+	
+	bg.save('test.jpg')
+	return s
+if __name__ == '__main__':
+
+	print captcha()
