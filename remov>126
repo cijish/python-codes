@@ -1,0 +1,9 @@
+fd = open('file.xml')
+data = fd.read()
+out = []
+for i in data:
+  n = ord(i)
+	if n > 126: print i
+	out.append(i)
+
+print "".join(out)
