@@ -1,0 +1,60 @@
+import sys
+def translate(str):
+    str=str.lower()
+    vow=('a','e','i','o','u')
+    dComb={'Aa':0x0D06,'Ai':0x0D10,'Au':0x0D14,'Ee':0x0D0F,'Ii':0x0D08,'Iu':0x0D0B,'Oo':0x0D13,'Uu':0x0D0A,'aa':0x0D3E,'ai':0x0D48,'au':0x0D57,'ee':0x0D47,'ii':0x0D40,'iu':0x0D43,'oo':0x0D4B,'uu':0x0D42}
+    nComb={'A1':0x0D05,'a3':0x0D02,'a4':0x0D03,'b2':0x0D2D,'c2':0x0D1B,'d1':0x0D26,'d2':0x0D27,'d3':0x0D21,'d4':0x0D22,'g2':0x0D18,'g3':0x0D19,'j2':0x0D1D,'k2':0x0D16,'l2':0x0D33,'n2':0x0D23,'n3':0x0D1E,'p2':0x0D2B,'r2':0x0D41,
+'s2':0x0D37,'s3':0x0D38,'t1':0x0D1F,'t2':0x0D20,'t3':0x0D24,'t4':0x0D25}
+  
+    sComb={'A':0x0D05,'E':0x0D0E,'I':0x0D07,'O':0x0D12,'U':0x0D09,'a':0x0000,'b':0x0D2C,'c':0x0D1A,'d':0x0D26,'e':0x0D46,'f':0x200D,'g':0x0D17,'h':0x0D39,'i':0x0D3F,'j':0x0D1C,'k':0x0D15,'l':0x0D32,'m':0x0D2E,'n':0x0D28,'o':0x0D4A,'p':0x0D2A,'q':0x0D4D,'r':0x0D30,'s':0x0D36,'t':0x0D1F,'u':0x0D41,'v':0x0D35,'w':0x0000,'x':0x0000,'y':0x0D2F,'z':0x0D34}
+
+    cComb={'b1':0x0D2C,'b3':0x0D2C,'b4':0x0D2C,'c1':0x0D1A,'c3':0x0D1A,'c4':0x0D1A,'E1':0x0D0E,'E2':0x0D0E,'E3':0x0D0E,'E4':0x0D0E,'f1':0x200D,'f2':0x200D,'f3':0x200D,'f4':0x200D,'g1':0x0D17,'g4':0x0D17,'h1':0x0D39,'h2':0x0D39,'h3':0x0D39,'h4':0x0D39,'I1':0x0D3F,'I2':0x0D3F,'I3':0x0D3F,'I4':0x0D3F,'j1':0x0D1C,'j3':0x0D1C,'j4':0x0D1C,'k1':0x0D15,'k3':0x0D15,'k4':0x0D15,'l1':0x0D32,'l3':0x0D32,'l4':0x0D32,'m1':0x0D2E,'m2':0x0D2E,'m3':0x0D2E,'m4':0x0D2E,'n1':0x0D28,'n4':0x0D28,'O1':0x0D4A,'O2':0x0D4A,'O3':0x0D4A,'O4':0x0D4A,'p1':0x0D2A,'p3':0x0D2A,'p4':0x0D2A,'q1':0x0D4D,'q2':0x0D4D,'q3':0x0D4D,'q4':0x0D4D,'r1':0x0D30,'r3':0x0D30,'r4':0x0D30,'s1':0x0D36,'s4':0x0D36,'U1':0x0D41,'U2':0x0D41,'U3':0x0D41,'U4':0x0D41,'v1':0x0D35,'v2':0x0D35,'v3':0x0D35,'v4':0x0D35,'w1':0x0000,'w2':0x0000,'w3':0x0000,'w4':0x0000,'x1':0x0000,'x2':0x0000,'x3':0x0000,'x4':0x0000,'y1':0x0D2F,'y2':0x0D2F,'y3':0x0D2F,'y4':0x0D2F,'z1':0x0D34,'z2':0x0D34,'z3':0x0D34,'z4':0x0D34}
+
+    mkComb={'bb':'bqb','b1b1':'b1qb1','b2b2':'b2qb2','b3b3':'b3qb3','b4b4':'b4qb4','cc':'cqc','c1c1':'c1qc1','c2c2':'c2qc2','c3c3':'c3qc3','c4c4':'c4qc4','dd':'dqd','d1d1':'d1qd1','d2d2':'d2qd2','d3d3':'d3qd3','d4d4':'d4qd4','ee':'eqe','e1e1':'e1qe1','e2e2':'e2qe2','e3e3':'e3qe3','e4e4':'e4qe4','ff':'fqf','f1f1':'f1qf1','f2f2':'f2qf2','f3f3':'f3qf3','f4f4':'f4qf4','gg':'gqg','g1g1':'g1qg1','g2g2':'g2qg2','g3g3':'g3qg3','g4g4':'g4qg4','hh':'hqh','h1h1':'h1qh1','h2h2':'h2qh2','h3h3':'h3qh3','h4h4':'h4qh4','jj':'jqj','j1j1':'j1qj1','j2j2':'j2qj2','j3j3':'j3qj3','j4j4':'j4qj4','kk':'kqk','k1k1':'k1qk1','k2k2':'k2qk2','k3k3':'k3qk3','k4k4':'k4qk4','ll':'lql','l1l1':'l1ql1','l2l2':'l2ql2','l3l3':'l3ql3','l4l4':'l4ql4','mm':'mqm','m1m1':'m1qm1','m2m2':'m2qm2','m3m3':'m3qm3','m4m4':'m4qm4','nn':'nqn','n1n1':'n1qn1','n2n2':'n2qn2','n3n3':'n3qn3','n4n4':'n4qn4','pp':'pqp','p1p1':'p1qp1','p2p2':'p2qp2','p3p3':'p3qp3','p4p4':'p4qp4','qq':'qqq','q1q1':'q1qq1','q2q2':'q2qq2','q3q3':'q3qq3','q4q4':'q4qq4','rr':'rqr','r1r1':'r1qr1','r2r2':'r2qr2','r3r3':'r3qr3','r4r4':'r4qr4','ss':'sqs','s1s1':'s1qs1','s2s2':'s2qs2','s3s3':'s3qs3','s4s4':'s4qs4','tt':'tqt','t1t1':'t1qt1','t2t2':'t2qt2','t3t3':'t3qt3','t4t4':'t4qt4','vv':'vqv','v1v1':'v1qv1','v2v2':'v2qv2','v3v3':'v3qv3','v4v4':'v4qv4','ww':'wqw','w1w1':'w1qw1','w2w2':'w2qw2','w3w3':'w3qw3','w4w4':'w4qw4','xx':'xqx','x1x1':'x1qx1','x2x2':'x2qx2','x3x3':'x3qx3','x4x4':'x4qx4','yy':'yqy','y1y1':'y1qy1','y2y2':'y2qy2','y3y3':'y3qy3','y4y4':'y4qy4','zz':'zqz','z1z1':'z1qz1','z2z2':'z2qz2','z3z3':'z3qz3','z4z4':'z4qz4'}  
+
+    str=str.lower()
+        if str[0] in vow:
+                str=str.capitalize()
+  
+    for i in mkComb.keys():
+        str=str.replace(i,mkComb[i])
+    for i in nComb.keys():
+                str=str.replace(i,unichr(nComb[i]))
+    for i in cComb.keys():
+        str=str.replace(i,unichr(cComb[i]))
+    for i in dComb.keys():
+                str=str.replace(i,unichr(dComb[i]))
+    for i  in sComb.keys():
+                str=str.replace(i,unichr(sComb[i]))
+
+    return str
+
+if __name__ == '__main__':
+    try:
+        str=""
+        if len(sys.argv) == 3:
+            infile=open(sys.argv[1],'r')
+            outfile=open(sys.argv[2],'w')
+        elif len(sys.argv) == 2:
+            infile=open(sys.argv[1],'r+')
+            outfile=infile
+        else:
+            print "less number of arguments"
+                    print "\nNAME \n\t  translate -translates english to malayalam "
+                    print "\nSYNOPSIS\n\t translate <input-file>[output-file]"
+                    print "\nDESCRIPTION\n\n\t used to translate english to malayalam.."
+        file=infile.read()
+            words=file.split(" ")
+        for i in words:
+            str=str+translate(i)+" "
+        out=str.encode("utf-8")
+        outfile.write(out)
+    except Exception:
+        print Exception
+        print "less number of arguments"
+                print "\nNAME \n\t  translate -translates english to malayalam "
+                print "\nSYNOPSIS\n\t translate <input-file>[output-file]"
+                print "\nDESCRIPTION\n\n\t used to translate english to malayalam.."
+    finally:
+        infile.close()
+                outfile.close()
